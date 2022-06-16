@@ -1,0 +1,114 @@
+{%extends "home.html "%} {% block title %}Profile{% endblock %}
+{%block content%}
+<div class="container mt-5 mb-5">
+  <div class="row text-light">
+    <div class="d-flex justify-content-center">
+      <div class="py-5 px-5 col-xl-6 d-flex justify-content-center shadow bg-custom">
+        <div class="container">
+
+          {% if edit=="1" %}
+
+            <form method="post" enctype="multipart/form-data">
+
+              <div class="container pt-3 pb-3 d-flex justify-content-center">
+                <div class="image">
+                  <script>
+                    var loadFile = function(event) {
+                      var output = document.getElementById('output');
+                      output.src = URL.createObjectURL(event.target.files[0]);
+                      output.onload = function() {
+                        URL.revokeObjectURL(output.src) // free memory
+                      }
+                    };
+                  </script>
+                  {% if user.photoname == None %}
+                  <img class="rounded-circle image_img" id="output"  src="/static/placeholder.png" alt="" >
+                  {% else %}
+                  <img class="rounded-circle image_img" id="output"  src="/static/data/{{user.photoname}}" alt="" >
+                  {% endif %}
+                  <div class="image_overlay rounded-circle">
+                    <div class="choose_image">
+                      <label class="custom_label" for="upload_photo">Change image</label>
+                      <input type="file" name="photo" id="upload_photo" onchange="loadFile(event)">
+                      <input type="hidden" name="change_photo" value="1">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="container">
+                <div class="h5 py-4 text-center">Account info</div>
+                <div class="mx-3 pt-2 row">
+                  <div class="col">Username</div>
+                  <div class="col text-muted">{{user.username}}</div>
+                </div>
+                <div class="mx-3 pt-2 row">
+                  <div class="col">Email</div>
+                  <div class="col text-muted">{{user.email}}</div>
+                </div>
+                <div class="mx-3 pt-2 row">
+                  <div class="col">Name</div>
+                  <div class="col"><input class="custom_input" type="text" name="name" value="{{user.name}}" ></div>
+                </div>
+                <div class="mx-3 pt-2 row">
+                  <div class="col">Surname</div>
+                  <div class="col"><input class="custom_input" type="text" name="surname" value="{{user.surname}}" ></div>
+                </div>
+
+                <div class="row pt-5 text-center">
+                  <div class="col">
+                    <button class="btn btn-outline-secondary text-light" type="submit" name="edit" value="0" >save</button>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+
+
+          {% elif edit == "0" %}
+
+          <div class="container pt-3 pb-3 d-flex justify-content-center">
+            <div class="image">
+              {% if user.photoname == None %}
+              <img class="rounded-circle image_img"  src="/static/placeholder.png" alt="" >
+              {% else %}
+              <img class="rounded-circle image_img"  src="static/data/{{user.photoname}}" alt="" >
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="h5 py-4 text-center">Account info</div>
+            <div class="mx-3 pt-2 row">
+              <div class="col">Username</div>
+              <div class="col">{{user.username}}</div>
+            </div>
+            <div class="mx-3 pt-2 row">
+              <div class="col">Email</div>
+              <div class="col">{{user.email}}</div>
+            </div>
+            <div class="mx-3 pt-2 row">
+              <div class="col">Name</div>
+              <div class="col">{{user.name}}</div>
+            </div>
+            <div class="mx-3 pt-2 row">
+              <div class="col">Surname</div>
+              <div class="col">{{user.surname}}</div>
+            </div>
+
+            <div class="row pt-5 text-center">
+              <div class="col">
+                <form method="post">
+                  <button class="btn btn-outline-secondary text-light px-3" type="submit" name="edit" value=1 >edit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          {% endif %}
+
+      </div>
+    </div>
+  </div>
+{%endblock%}
