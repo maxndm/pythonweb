@@ -14,7 +14,7 @@ def home():
     g = geocoder.ipinfo(external_ip)
     print(g.city)
     BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
-    URL = BASE_URL + "q=" + g.city + "&appid=" + 'b23b2c4d66fefd13893e1d14f585a484'
+    URL = BASE_URL + "q=" + g.city + "&appid=" + 'APIHERE'
     response = requests.get(URL)
     if response.status_code == 200:
         data = response.json()
