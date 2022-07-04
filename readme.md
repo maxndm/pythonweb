@@ -2,7 +2,7 @@
 # Flask website
 ## Structure description
 
-- CVproject<br>
+- pythonweb<br>
   Folder which stores project
 
   - main.py<br>
